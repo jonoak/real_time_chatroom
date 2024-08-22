@@ -42,7 +42,7 @@ function ChatRoom({ room }) {
         
         const messageRef = firebase.database().ref('chatrooms').child(room);
         const newMessage = {
-          text: `File uploaded: <a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`,
+          text: `<img src="${url}" alt="${file.name}" style="max-width: 100%; height: auto;"/>`,
           user: username,
           timestamp: new Date().toISOString(),
         };
@@ -85,3 +85,4 @@ function ChatRoom({ room }) {
 }
 
 export default ChatRoom;
+

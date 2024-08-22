@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate, useNavigate, useParams } from 'react-router-dom';
-import firebase from './firebase';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useParams } from 'react-router-dom';
 import ChatRoom from './ChatRoom';
 import './App.css';
+import NavigationBar from './NavigationBar'; // Import the NavigationBar component
 
 function App() {
   return (
     <Router>
       <div id="root">
+        <NavigationBar /> {/* Add NavigationBar component here */}
         <h1>Welcome to the Chatroom</h1>
         <Routes>
           <Route path="/" element={<RoomRedirect />} />

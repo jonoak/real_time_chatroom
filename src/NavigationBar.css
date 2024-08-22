@@ -1,0 +1,22 @@
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f8f9fa; /* Light background */
+  border-bottom: 2px solid blue; /* Blue border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+}
+
+.navigation-bar button {
+  padding: 0.5rem 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
+  cursor: pointer;
+}
+
+.navigation-bar button:active {
+  box-shadow: 0 0 15px blue; /* Stronger glow on active */
+}
+

@@ -1,39 +1,39 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 0;
   text-align: center;
-  background: white; /* Background set to white */
-  color: black; /* Set text color to black */
+  background: white;
+  color: black;
 }
 
 .card {
   padding: 2em;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 15px blue; /* Glowing blue outline */
-  background: white; /* Background set to white */
-  color: black; /* Set text color to black */
+  border: 2px solid blue;
+  box-shadow: 0 0 15px blue;
+  background: white;
+  color: black;
 }
 
 input[type="text"] {
   padding: 0.5rem;
   margin-right: 1rem;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
-  color: black; /* Set text color to black */
-  background: white; /* Background set to white */
+  border: 2px solid blue;
+  box-shadow: 0 0 10px blue;
+  color: black;
+  background: white;
 }
 
 button {
   padding: 0.5rem 1rem;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
-  color: black; /* Set text color to black */
-  background: white; /* Background set to white */
+  border: 2px solid blue;
+  box-shadow: 0 0 10px blue;
+  color: black;
+  background: white;
   cursor: pointer;
 }
 
 button:active, input[type="text"]:focus {
-  box-shadow: 0 0 15px blue; /* Stronger glow on focus/active */
+  box-shadow: 0 0 15px blue;
 }
-
