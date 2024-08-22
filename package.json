@@ -1,0 +1,35 @@
+I'll assume you have a `package.json` file; if not, here is a sample with Jest and scripts for testing and deploying:
+
+{
+  "name": "real-time-chatroom",
+  "version": "1.0.0",
+  "description": "A real-time chatroom application.",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "webpack serve --open",
+    "build": "webpack --mode production",
+    "test": "jest"
+  },
+  "dependencies": {
+    "firebase": "^9.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.15.0",
+    "@babel/preset-env": "^7.15.0",
+    "babel-loader": "^8.2.2",
+    "jest": "^27.0.0",
+    "webpack": "^5.52.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "moduleFileExtensions": ["js", "json"],
+    "testMatch": ["**/?(*.)+(spec|test).[jt]s?(x)"],
+    "transform": {
+      "^.+\.js$": "babel-jest"
+    }
+  }
+}
+
