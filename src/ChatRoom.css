@@ -1,23 +1,28 @@
 .chatroom {
   max-width: 600px;
   margin: 2rem auto;
-  background: #2c2c2c;
+  background: white; /* Background set to white */
   padding: 1rem;
   border-radius: 8px;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 15px blue; /* Glowing blue outline */
 }
 
 .messages {
   max-height: 400px;
   overflow-y: auto;
   margin-bottom: 1rem;
+  color: black; /* Set text color to black */
 }
 
 .message {
   margin-bottom: 0.5rem;
+  color: black; /* Set text color to black */
 }
 
 .message-user {
   font-weight: bold;
+  color: black; /* Set text color to black */
 }
 
 .message-timestamp {
@@ -30,9 +35,23 @@ input[type="text"] {
   width: calc(100% - 22px);
   padding: 0.5rem;
   margin-bottom: 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
 }
 
 button {
   padding: 0.5rem 1rem;
   margin-left: 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
+  cursor: pointer;
 }
+
+button:active, input[type="text"]:focus {
+  box-shadow: 0 0 15px blue; /* Stronger glow on focus/active */
+}
+
