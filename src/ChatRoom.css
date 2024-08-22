@@ -1,0 +1,38 @@
+.chatroom {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: #2c2c2c;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+}
+
+.message {
+  margin-bottom: 0.5rem;
+}
+
+.message-user {
+  font-weight: bold;
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #888;
+  margin-left: 1rem;
+}
+
+input[type="text"] {
+  width: calc(100% - 22px);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+}
