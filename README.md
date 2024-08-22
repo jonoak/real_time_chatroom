@@ -1,11 +1,8 @@
-Update the README to include the testing instructions:
+# React + Vite
 
-## Development
-To develop and test the project locally, use the following commands:
-- `npm start` or `yarn start`: Starts the development server on `http://localhost:9000`.
-- `npm run build` or `yarn build`: Bundles the project into the `dist` directory.
-- `npm run test` or `yarn test`: Runs the test suite.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Continuous Integration and Deployment
-This project uses GitHub Actions for continuous integration. Tests are automatically run on every push to the main branch, and if they pass, the project is deployed to GitHub Pages.
+Currently, two official plugins are available:
 
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
