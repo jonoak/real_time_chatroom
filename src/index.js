@@ -4,14 +4,15 @@ import { getStorage, ref, uploadBytes, getDownloadURL, deleteObject } from 'fire
 import randomName from 'random-name-generator';
 import { v4 as uuidv4 } from 'uuid';
 
-const firebaseConfig = {
-    apiKey: 'YOUR_API_KEY',
-    authDomain: 'YOUR_AUTH_DOMAIN',
-    projectId: 'YOUR_PROJECT_ID',
-    storageBucket: 'YOUR_STORAGE_BUCKET',
-    messagingSenderId: 'YOUR_MESSAGING_SENDER_ID',
-    appId: 'YOUR_APP_ID'
-};
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfrntqfi5tVbyT_hT97WPkT1MXgcQ0e2o",
+    authDomain: "coolsupersafespace.firebaseapp.com",
+    projectId: "coolsupersafespace",
+    storageBucket: "coolsupersafespace.appspot.com",
+    messagingSenderId: "989205908042",
+    appId: "1:989205908042:web:20d05c7ac4b61819e574b3",
+    measurementId: "G-VC486VB4W0"
+  };
 
 initializeApp(firebaseConfig);
 const db = getFirestore();

@@ -1,0 +1,38 @@
+
+To set up your project on GitHub so that it hosts the page and ensures code quality via automated tests, you’ll need to create a few additional files and configurations. Below are the necessary files to add to your project:
+
+
+This GitHub Actions workflow will build and deploy your project to GitHub Pages whenever you push to the `main` branch.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      
+    - name: Set up Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: '16'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Build the project
+      run: npm run build
+
+    - name: Deploy to GitHub Pages
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./dist
+
