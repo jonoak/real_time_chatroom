@@ -31,23 +31,27 @@ function ChatRoom({ room }) {
     }
   };
 
-  const handleFileUpload = (event) => {
+  const handleFileUpload = async (event) => {
     const file = event.target.files[0];
     if (file && file.size <= 15 * 1024 * 1024) {
-      const storageRef = firebase.storage().ref();
-      const fileRef = storageRef.child(`${room}/${file.name}`);
-      fileRef.put(file).then(() => {
-        fileRef.getDownloadURL().then((url) => {
-          const messageRef = firebase.database().ref('chatrooms').child(room);
-          const newMessage = {
-            text: `File uploaded: ${url}`,
-            user: username,
-            timestamp: new Date().toISOString(),
-          };
-          messageRef.push(newMessage);
-          setTimeout(() => fileRef.delete(), 15 * 60 * 1000);
-        });
-      });
+      try {
+        const storageRef = firebase.storage().ref();
+        const fileRef = storageRef.child(`${room}/${encodeURIComponent(file.name)}`);
+        await fileRef.put(file);
+        const url = await fileRef.getDownloadURL();
+        
+        const messageRef = firebase.database().ref('chatrooms').child(room);
+        const newMessage = {
+          text: `File uploaded: <a href="${url}" target="_blank" rel="noopener noreferrer">${file.name}</a>`,
+          user: username,
+          timestamp: new Date().toISOString(),
+        };
+        messageRef.push(newMessage);
+        setTimeout(() => fileRef.delete(), 15 * 60 * 1000);
+      } catch (error) {
+        console.error("File upload error:", error.message);
+        alert("Failed to upload file. Please check your permissions.");
+      }
     }
   };
 
@@ -57,7 +61,7 @@ function ChatRoom({ room }) {
       <div className="messages">
         {messages.map((message, index) => (
           <div key={index} className="message">
-            <span className="message-user">{message.user}</span>: <span className="message-text">{message.text}</span>
+            <span className="message-user">{message.user}</span>: <span className="message-text" dangerouslySetInnerHTML={{ __html: message.text }} />
             <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
           </div>
         ))}
@@ -81,4 +85,3 @@ function ChatRoom({ room }) {
 }
 
 export default ChatRoom;
-
