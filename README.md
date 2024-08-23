@@ -34,7 +34,7 @@ To set up Cool Super Safe Space on your local machine, follow these steps:
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/cool-super-safe-space.git
+   git clone https://github.com/jonoak/cool-super-safe-space.git
    ```
 2. Navigate to the project directory:
    ```bash
