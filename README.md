@@ -99,7 +99,7 @@ To set up Cool Super Safe Space on your local machine, follow these steps:
    ```
 4. Start the development server:
    ```bash
-   npm start
+   npm run dev
    ```
 5. Open your browser and navigate to `http://localhost:3000` to start chatting!
 
