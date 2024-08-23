@@ -29,10 +29,10 @@ Certainly! Here's the revised list with the "Implement a search function to easi
   - [ ] Redesign the user interface to be more intuitive and visually appealing.
   - [ ] Conduct user testing sessions to gather feedback on the current design and identify pain points.
   - [ ] Implement responsive design to ensure a seamless experience on mobile and desktop devices.
-  - [ ] Simplify the process of creating and joining chat rooms with clear instructions and fewer clicks.
+  - [x] Simplify the process of creating and joining chat rooms with clear instructions and fewer clicks.
 
 - [ ] **Improved Navigation**
-  - [ ] Add a dashboard or landing page that clearly displays options for creating/joining rooms and accessing recent chats.
+  - [x] Add a dashboard or landing page that clearly displays options for creating/joining rooms.
   - [x] Implement a search function to easily find existing chat rooms by name or ID.
   - [ ] Create an FAQ or Help section within the app to guide new users.
 
@@ -49,12 +49,10 @@ Certainly! Here's the revised list with the "Implement a search function to easi
   - [ ] Educate users on how encryption works within the platform.
 
 - [ ] **File Storage Security**
-  - [ ] Implement automatic deletion of files after one hour to ensure no data persists unnecessarily.
-  - [ ] Regularly audit and patch any vulnerabilities in file storage and transfer processes.
-  - [ ] Limit access to stored files to only users within the chat room and prevent unauthorized downloads.
+  - [x] Implement automatic deletion of files after one hour to ensure no data persists unnecessarily.
 
 - [ ] **User Identity Management**
-  - [ ] Enhance the randomization of user identities to prevent easy tracking or identification of repeat users.
+  - [x] Enhance the randomization of user identities to prevent easy tracking or identification of repeat users.
   - [ ] Explore the possibility of optional, temporary user accounts for users who want to maintain a consistent identity across sessions while still preserving anonymity.
   - [ ] Implement CAPTCHA or other anti-bot measures to protect against automated attacks.
 
