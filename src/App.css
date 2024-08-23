@@ -3,6 +3,7 @@
   max-width: 1280px;
   margin: 0 auto;
   padding: 0;
+  border: 2px solid blue;
   text-align: center;
   background: black;
   color: blue;
