@@ -19,7 +19,7 @@ function ChatRoom({ room }) {
   }, [room]);
 
   const sendMessage = () => {
-    if (input.length > 0 && input.length <= 1000) {
+    if (input.length > 0 && input.length <= 50000) {  // Changed to 50000
       const messageRef = firebase.database().ref('chatrooms').child(room);
       const newMessage = {
         text: input,
@@ -55,7 +55,6 @@ function ChatRoom({ room }) {
     }
   };
 
-  // New function to format date and time
   const formatDateTime = (timestamp) => {
     const date = new Date(timestamp);
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
