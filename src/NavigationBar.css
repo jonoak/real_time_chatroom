@@ -1,22 +1,22 @@
 .navigation-bar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
-  background-color: #f8f9fa; /* Light background */
-  border-bottom: 2px solid blue; /* Blue border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  padding: 1rem 2rem;
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .navigation-bar button {
   padding: 0.5rem 1rem;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
-  color: black; /* Set text color to black */
-  background: white; /* Background set to white */
+  border: none;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.navigation-bar button:active {
-  box-shadow: 0 0 15px blue; /* Stronger glow on active */
+.navigation-bar button:hover {
+  background-color: #0056b3;
 }
-

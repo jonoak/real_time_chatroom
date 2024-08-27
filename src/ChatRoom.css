@@ -1,82 +1,62 @@
 .chatroom {
-  max-width: 600px;
+  max-width: 800px;
   margin: 2rem auto;
-  background: white; /* Background set to white */
-  padding: 1rem;
+  background-color: #ffffff;
+  padding: 1.5rem;
   border-radius: 8px;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 15px blue; /* Glowing blue outline */
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .messages {
   max-height: 400px;
   overflow-y: auto;
   margin-bottom: 1rem;
-  color: black; /* Set text color to black */
+  color: #333;
 }
 
 .message {
-  margin-bottom: 0.5rem;
-  color: black; /* Set text color to black */
+  margin-bottom: 1rem;
 }
 
 .message-user {
   font-weight: bold;
-  color: black; /* Set text color to black */
+  color: #007bff;
 }
 
 .message-timestamp {
   font-size: 0.8em;
   color: #888;
-  margin-left: 1rem;
+  display: block;
+  text-align: right;
 }
 
-input[type="text"] {
-  width: calc(100% - 22px);
+textarea {
+  width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
-  color: black; /* Set text color to black */
-  background: white; /* Background set to white */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
 }
 
 button {
   padding: 0.5rem 1rem;
-  margin-left: 1rem;
-  border: 2px solid blue; /* Added border */
-  box-shadow: 0 0 10px blue; /* Glowing blue outline */
-  color: black; /* Set text color to black */
-  background: white; /* Background set to white */
+  margin-left: 0.5rem;
+  border: none;
+  background-color: #007bff;
+  color: #ffffff;
+  border-radius: 4px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-button:active, input[type="text"]:focus {
-  box-shadow: 0 0 15px blue; /* Stronger glow on focus/active */
+button:hover {
+  background-color: #0056b3;
 }
 
-/* Add this to your ChatRoom.css file */
-textarea {
-  width: calc(100% - 22px);
-  padding: 0.5rem;
-  margin-bottom: 1rem;
-  border: 2px solid blue;
-  box-shadow: 0 0 10px blue;
-  color: black;
-  background: white;
-  resize: vertical;
-  min-height: 60px;
-}
-
+button:focus,
 textarea:focus {
-  box-shadow: 0 0 15px blue;
-}
-
-
-.message-timestamp {
-  font-size: 0.8em;
-  color: #888;
-  margin-left: 1rem;
-  display: block;  /* This will put the timestamp on a new line */
-  text-align: right;  /* This will align the timestamp to the right */
+  border-color: #007bff;
+  outline: none;
 }

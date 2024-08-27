@@ -51,8 +51,7 @@ def gather_files_content(root_folder, file_types=None, max_char_count=None):
 
 
 import os
-
-def gather_files_content(root_folder, output_file, file_types=None, max_char_count=None):
+def gather_files_content_and_save(root_folder, output_file, file_types=None, max_char_count=None):
     """
     Gathers content from all files in the specified folder and its subfolders,
     excluding hidden files and folders. Only includes files with extensions in
@@ -64,7 +63,12 @@ def gather_files_content(root_folder, output_file, file_types=None, max_char_cou
         file_types (list of str): List of file extensions to include (e.g., ['.txt', '.py']).
         max_char_count (int): Maximum number of characters allowed per file.
     """
+    add_string = "give me files in the same format im giving you files with the correct file paths, pay attention to the file paths, they are the full file paths.\n\n"
+    
     with open(output_file, 'w', encoding='utf-8') as out_file:
+        # Write the add_string at the top of the file
+        out_file.write(add_string)
+        
         for dirpath, dirnames, filenames in os.walk(root_folder):
             # Exclude hidden directories
             dirnames[:] = [d for d in dirnames if not d.startswith('.')]
@@ -87,4 +91,5 @@ def gather_files_content(root_folder, output_file, file_types=None, max_char_cou
                     continue  # Skip files that cannot be read
 
 # Example usage:
-gather_files_content('src', 'output.txt', file_types=['.json', '.md', '.js', '.css', '.jsx'], max_char_count=10000)
+gather_files_content_and_save('src', 'output.txt', file_types=['.json', '.md', '.js', '.css', '.jsx'], max_char_count=10000)
+

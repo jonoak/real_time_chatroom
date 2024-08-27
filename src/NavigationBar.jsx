@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import './NavigationBar.css'; // Add CSS for the navigation bar
+import './NavigationBar.css'; // Updated CSS for the navigation bar
 
 function NavigationBar() {
   const navigate = useNavigate();
@@ -20,12 +20,11 @@ function NavigationBar() {
   };
 
   return (
-    <div className="navigation-bar">
+    <nav className="navigation-bar">
       <button onClick={goHome}>Home</button>
       <button onClick={copyLink}>Share</button>
-    </div>
+    </nav>
   );
 }
 
 export default NavigationBar;
-
