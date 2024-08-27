@@ -55,22 +55,29 @@ function ChatRoom({ room }) {
     }
   };
 
+  // New function to format date and time
+  const formatDateTime = (timestamp) => {
+    const date = new Date(timestamp);
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+  };
+
   return (
     <div className="chatroom">
       <h2>Room: {room}</h2>
       <div className="messages">
         {messages.map((message, index) => (
           <div key={index} className="message">
-            <span className="message-user">{message.user}</span>: <span className="message-text" dangerouslySetInnerHTML={{ __html: message.text }} />
-            <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
+            <span className="message-user">{message.user}</span>: 
+            <span className="message-text" dangerouslySetInnerHTML={{ __html: message.text }} />
+            <span className="message-timestamp">{formatDateTime(message.timestamp)}</span>
           </div>
         ))}
       </div>
-      <input
-        type="text"
+      <textarea
         value={input}
         onChange={(e) => setInput(e.target.value)}
         placeholder="Type your message..."
+        rows="3"
       />
       <button onClick={sendMessage}>Send</button>
       <input
@@ -85,4 +92,3 @@ function ChatRoom({ room }) {
 }
 
 export default ChatRoom;
-

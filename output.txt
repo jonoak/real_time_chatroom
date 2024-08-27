@@ -1,0 +1,357 @@
+### **File: `src/NavigationBar.jsx`**
+```jsx
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import './NavigationBar.css'; // Add CSS for the navigation bar
+
+function NavigationBar() {
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate('/');
+  };
+
+  const copyLink = () => {
+    navigator.clipboard.writeText(window.location.href)
+      .then(() => {
+        alert('Link copied to clipboard!');
+      })
+      .catch((err) => {
+        console.error('Failed to copy link:', err);
+      });
+  };
+
+  return (
+    <div className="navigation-bar">
+      <button onClick={goHome}>Home</button>
+      <button onClick={copyLink}>Share</button>
+    </div>
+  );
+}
+
+export default NavigationBar;
+
+
+```
+
+### **File: `src/main.jsx`**
+```jsx
+import { StrictMode } from 'react'
+import { createRoot } from 'react-dom/client'
+import App from './App.jsx'
+
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <App />
+  </StrictMode>,
+)
+
+```
+
+### **File: `src/App.jsx`**
+```jsx
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Route, Routes, useNavigate, useParams } from 'react-router-dom';
+import ChatRoom from './ChatRoom';
+import './App.css';
+import NavigationBar from './NavigationBar'; // Import the NavigationBar component
+
+function App() {
+  return (
+    <Router>
+      <div id="root">
+        <NavigationBar /> {/* Add NavigationBar component here */}
+        <h1>Welcome to the Chatroom</h1>
+        <Routes>
+          <Route path="/" element={<RoomRedirect />} />
+          <Route path="/:room" element={<ChatRoomWrapper />} />
+        </Routes>
+      </div>
+    </Router>
+  );
+}
+
+const RoomRedirect = () => {
+  const [newRoom, setNewRoom] = useState('');
+  const navigate = useNavigate();
+
+  const createRoom = () => {
+    if (newRoom) {
+      navigate(`/${newRoom}`);
+    }
+  };
+
+  return (
+    <div className="card">
+      <input
+        type="text"
+        placeholder="Enter a room name..."
+        value={newRoom}
+        onChange={(e) => setNewRoom(e.target.value)}
+      />
+      <button onClick={createRoom}>Create or Join Room</button>
+    </div>
+  );
+};
+
+const ChatRoomWrapper = () => {
+  const { room } = useParams();
+  return <ChatRoom room={room} />;
+};
+
+export default App;
+
+```
+
+### **File: `src/NavigationBar.css`**
+```css
+.navigation-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  background-color: #f8f9fa; /* Light background */
+  border-bottom: 2px solid blue; /* Blue border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+}
+
+.navigation-bar button {
+  padding: 0.5rem 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
+  cursor: pointer;
+}
+
+.navigation-bar button:active {
+  box-shadow: 0 0 15px blue; /* Stronger glow on active */
+}
+
+
+```
+
+### **File: `src/firebase.js`**
+```js
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/database';
+import 'firebase/compat/storage';
+
+
+const firebaseConfig = {
+    apiKey: "AIzaSyBfrntqfi5tVbyT_hT97WPkT1MXgcQ0e2o",
+    authDomain: "coolsupersafespace.firebaseapp.com",
+    projectId: "coolsupersafespace",
+    storageBucket: "coolsupersafespace.appspot.com",
+    messagingSenderId: "989205908042",
+    appId: "1:989205908042:web:20d05c7ac4b61819e574b3",
+    measurementId: "G-VC486VB4W0"
+  };
+
+firebase.initializeApp(firebaseConfig);
+
+export default firebase;
+
+
+```
+
+### **File: `src/ChatRoom.jsx`**
+```jsx
+import React, { useState, useEffect, useRef } from 'react';
+import firebase from './firebase';
+import './ChatRoom.css';
+
+function ChatRoom({ room }) {
+  const [messages, setMessages] = useState([]);
+  const [input, setInput] = useState('');
+  const [username, setUsername] = useState(`User-${Math.floor(Math.random() * 10000)}`);
+  const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    const messagesRef = firebase.database().ref('chatrooms').child(room);
+    messagesRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        setMessages(Object.values(data));
+      }
+    });
+  }, [room]);
+
+  const sendMessage = () => {
+    if (input.length > 0 && input.length <= 1000) {
+      const messageRef = firebase.database().ref('chatrooms').child(room);
+      const newMessage = {
+        text: input,
+        user: username,
+        timestamp: new Date().toISOString(),
+      };
+      messageRef.push(newMessage);
+      setInput('');
+    }
+  };
+
+  const handleFileUpload = async (event) => {
+    const file = event.target.files[0];
+    if (file && file.size <= 15 * 1024 * 1024) {
+      try {
+        const storageRef = firebase.storage().ref();
+        const fileRef = storageRef.child(`${room}/${encodeURIComponent(file.name)}`);
+        await fileRef.put(file);
+        const url = await fileRef.getDownloadURL();
+        
+        const messageRef = firebase.database().ref('chatrooms').child(room);
+        const newMessage = {
+          text: `<img src="${url}" alt="${file.name}" style="max-width: 100%; height: auto;"/>`,
+          user: username,
+          timestamp: new Date().toISOString(),
+        };
+        messageRef.push(newMessage);
+        setTimeout(() => fileRef.delete(), 15 * 60 * 1000);
+      } catch (error) {
+        console.error("File upload error:", error.message);
+        alert("Failed to upload file. Please check your permissions.");
+      }
+    }
+  };
+
+  return (
+    <div className="chatroom">
+      <h2>Room: {room}</h2>
+      <div className="messages">
+        {messages.map((message, index) => (
+          <div key={index} className="message">
+            <span className="message-user">{message.user}</span>: <span className="message-text" dangerouslySetInnerHTML={{ __html: message.text }} />
+            <span className="message-timestamp">{new Date(message.timestamp).toLocaleTimeString()}</span>
+          </div>
+        ))}
+      </div>
+      <input
+        type="text"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        placeholder="Type your message..."
+      />
+      <button onClick={sendMessage}>Send</button>
+      <input
+        type="file"
+        ref={fileInputRef}
+        style={{ display: 'none' }}
+        onChange={handleFileUpload}
+      />
+      <button onClick={() => fileInputRef.current.click()}>Upload File</button>
+    </div>
+  );
+}
+
+export default ChatRoom;
+
+
+```
+
+### **File: `src/App.css`**
+```css
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0;
+  border: 2px solid blue;
+  text-align: center;
+  background: black;
+  color: blue;
+}
+
+.card {
+  padding: 2em;
+  border: 2px solid blue;
+  box-shadow: 0 0 15px blue;
+  background: white;
+  color: black;
+}
+
+input[type="text"] {
+  padding: 0.5rem;
+  margin-right: 1rem;
+  border: 2px solid blue;
+  box-shadow: 0 0 10px blue;
+  color: black;
+  background: white;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: 2px solid blue;
+  box-shadow: 0 0 10px blue;
+  color: black;
+  background: white;
+  cursor: pointer;
+}
+
+button:active, input[type="text"]:focus {
+  box-shadow: 0 0 15px blue;
+}
+
+```
+
+### **File: `src/ChatRoom.css`**
+```css
+.chatroom {
+  max-width: 600px;
+  margin: 2rem auto;
+  background: white; /* Background set to white */
+  padding: 1rem;
+  border-radius: 8px;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 15px blue; /* Glowing blue outline */
+}
+
+.messages {
+  max-height: 400px;
+  overflow-y: auto;
+  margin-bottom: 1rem;
+  color: black; /* Set text color to black */
+}
+
+.message {
+  margin-bottom: 0.5rem;
+  color: black; /* Set text color to black */
+}
+
+.message-user {
+  font-weight: bold;
+  color: black; /* Set text color to black */
+}
+
+.message-timestamp {
+  font-size: 0.8em;
+  color: #888;
+  margin-left: 1rem;
+}
+
+input[type="text"] {
+  width: calc(100% - 22px);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
+}
+
+button {
+  padding: 0.5rem 1rem;
+  margin-left: 1rem;
+  border: 2px solid blue; /* Added border */
+  box-shadow: 0 0 10px blue; /* Glowing blue outline */
+  color: black; /* Set text color to black */
+  background: white; /* Background set to white */
+  cursor: pointer;
+}
+
+button:active, input[type="text"]:focus {
+  box-shadow: 0 0 15px blue; /* Stronger glow on focus/active */
+}
+
+
+```
+
